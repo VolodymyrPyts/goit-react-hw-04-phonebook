@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import shortid from 'shortid';
 
 import { LabelStyle, ButtonStyle } from './FormAddContact.styled';
 import { Box } from 'components/theme/Box';
@@ -8,15 +9,16 @@ export const FormAddContact = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const onHandleSubmit = e => {
+    e.preventDefault();
+
+    onSubmit({ id: shortid(), name, number });
+    reset();
+  };
+
   const reset = () => {
     setName('');
     setNumber('');
-  };
-
-  const onHandleSubmit = e => {
-    e.preventDefault();
-    onSubmit(name, number);
-    reset();
   };
 
   const onInputChange = e => {
